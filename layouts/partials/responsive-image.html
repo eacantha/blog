@@ -3,6 +3,7 @@
 {{- $class := .class | default "" -}}
 {{- $loading := .loading | default "lazy" -}}
 {{- $sizes := .sizes | default "100vw" -}}
+{{- $style := .style | default "" -}}
 {{- $processableTypes := slice "jpeg" "png" "webp" -}}
 
 {{- if and $image (in $processableTypes $image.MediaType.SubType) -}}
@@ -29,6 +30,7 @@
 
   <img
     {{- with $class }} class="{{ . }}"{{ end }}
+    {{- with $style }} style="{{ . | safeCSS }}"{{ end }}
     src="{{ $fallback.RelPermalink }}"
     {{- with $srcset }} srcset="{{ delimit . `, ` }}" sizes="{{ $sizes }}"{{ end }}
     width="{{ $fallback.Width }}"
@@ -41,6 +43,7 @@
   {{- with $image -}}
     <img
       {{- with $class }} class="{{ . }}"{{ end }}
+      {{- with $style }} style="{{ . | safeCSS }}"{{ end }}
       src="{{ .RelPermalink }}"
       alt="{{ $alt }}"
       loading="{{ $loading }}"

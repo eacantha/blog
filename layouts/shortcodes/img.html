@@ -1,0 +1,21 @@
+{{- $src := .Get "src" -}}
+{{- $alt := .Get "alt" | default "" -}}
+{{- $side := .Get "side" | default "none" -}}
+{{- $width := .Get "width" | default "45%" -}}
+{{- $page := .Page -}}
+{{- with $page.Resources.GetMatch $src -}}
+  {{- $class := "content-image" -}}
+  {{- if eq $side "left" }}{{ $class = "content-image content-image--left" -}}
+  {{- else if eq $side "right" }}{{ $class = "content-image content-image--right" -}}
+  {{- end -}}
+  {{- partial "responsive-image.html" (dict
+    "image" .
+    "alt" $alt
+    "class" $class
+    "style" (printf "--content-image-width:%s;" $width)
+    "loading" "lazy"
+    "sizes" "(max-width: 650px) 90vw, 45vw"
+  ) -}}
+{{- else -}}
+  {{- errorf "img shortcode: could not find resource %q for page %q" $src $page.File.Path -}}
+{{- end -}}
