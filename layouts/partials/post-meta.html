@@ -1,0 +1,10 @@
+<div class="post-meta">
+  <time datetime="{{ .Date.Format `2006-01-02` }}">{{ .Date | time.Format ":date_long" }}</time>
+  {{ with .GetTerms "tags" }}
+    <ul class="tag-list post-meta__tags" aria-label="Tags">
+      {{ range . }}
+        <li><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></li>
+      {{ end }}
+    </ul>
+  {{ end }}
+</div>

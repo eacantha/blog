@@ -1,0 +1,29 @@
+<div class="utility-panel" aria-label="Explore the blog">
+  <section class="utility-panel__section utility-panel__about" aria-labelledby="utility-about-title">
+    <h2 id="utility-about-title">About</h2>
+    {{ with site.Params.aboutBlurb }}
+      <p>{{ . }}</p>
+    {{ end }}
+    <a href="{{ `about/` | relURL }}">Read more <span aria-hidden="true">→</span></a>
+  </section>
+
+  <section class="utility-panel__section utility-panel__tags" aria-labelledby="utility-tags-title">
+    <h2 id="utility-tags-title">Tags</h2>
+    {{ with site.Taxonomies.tags.ByCount }}
+      <ul class="tag-list" aria-label="Popular tags">
+        {{ range first 8 . }}
+          <li><a href="{{ .Page.RelPermalink }}">{{ .Page.LinkTitle }}</a></li>
+        {{ end }}
+      </ul>
+    {{ else }}
+      <p>Tags will appear here as posts are published.</p>
+    {{ end }}
+    <a href="{{ `tags/` | relURL }}">View all tags <span aria-hidden="true">→</span></a>
+  </section>
+
+  <section class="utility-panel__section utility-panel__archive" aria-labelledby="utility-archive-title">
+    <h2 id="utility-archive-title">Calendar</h2>
+    <p>Browse posts by date in the monthly calendar and chronological archive.</p>
+    <a href="{{ `archive/` | relURL }}">Open the archive <span aria-hidden="true">→</span></a>
+  </section>
+</div>

@@ -1,0 +1,24 @@
+{{ define "main" }}
+  <section class="taxonomy-index" aria-labelledby="taxonomy-title">
+    <header class="list-header">
+      <h1 id="taxonomy-title">{{ .Title }}</h1>
+      <p>Browse posts by topic.</p>
+    </header>
+
+    {{ with site.Taxonomies.tags.ByCount }}
+      <ul class="taxonomy-list">
+        {{ range . }}
+          <li>
+            <a href="{{ .Page.RelPermalink }}">
+              <span>{{ .Page.LinkTitle }}</span>
+              <span class="taxonomy-list__count">{{ .Count }} {{ if eq .Count 1 }}post{{ else }}posts{{ end }}</span>
+            </a>
+          </li>
+        {{ end }}
+      </ul>
+    {{ else }}
+      <p class="empty-state">No tags have been published yet.</p>
+    {{ end }}
+  </section>
+{{ end }}
+

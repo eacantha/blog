@@ -1,0 +1,11 @@
+<footer class="site-footer">
+  <div class="site-footer__inner">
+    <p class="site-footer__decoration" aria-hidden="true">✦ &nbsp; ⋆ &nbsp; ✦</p>
+    <p>&copy; {{ now.Year }} {{ site.Title }}</p>
+    <p>Made with Hugo.</p>
+    {{ with site.Home.OutputFormats.Get "rss" }}
+      <p><a href="{{ .RelPermalink }}">RSS</a></p>
+    {{ end }}
+  </div>
+</footer>
+

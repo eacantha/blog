@@ -1,0 +1,22 @@
+# Hugo build output
+/public/
+/resources/_gen/
+
+# Hugo development lock file
+/.hugo_build.lock
+
+# Operating-system and editor artifacts
+.DS_Store
+Thumbs.db
+*~
+*.swp
+
+# Zone.Identifier files (Windows/WSL download marker)
+*:Zone.Identifier
+
+# Local scratch/test content, not part of the site
+/.image-test-content/
+/.single-test-content/
+
+# Notes
+deploy.md

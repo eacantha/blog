@@ -1,0 +1,21 @@
+<header class="site-header">
+  <div class="site-header__inner">
+    <div class="site-branding">
+      {{ if .IsHome }}
+        <h1 class="site-title">
+          <a href="{{ site.Home.RelPermalink }}">{{ site.Title }} <span aria-hidden="true">✦</span></a>
+        </h1>
+      {{ else }}
+        <p class="site-title">
+          <a href="{{ site.Home.RelPermalink }}">{{ site.Title }} <span aria-hidden="true">✦</span></a>
+        </p>
+      {{ end }}
+      {{ with site.Params.tagline }}
+        <p class="site-tagline">{{ . }}</p>
+      {{ end }}
+    </div>
+
+    {{ partial "utility-panel.html" . }}
+    {{ partial "search.html" . }}
+  </div>
+</header>

@@ -1,0 +1,15 @@
+{
+  "name": "blog.kittenin.space",
+  "short_name": "kittenin.space",
+  "start_url": "/",
+  "display": "browser",
+  "background_color": "#080d18",
+  "theme_color": "#080d18",
+  "icons": [
+    {
+      "src": "/favicon/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

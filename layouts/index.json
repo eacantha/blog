@@ -1,0 +1,14 @@
+{{- $index := slice -}}
+{{- $posts := where site.RegularPages "Section" "posts" -}}
+{{- range $posts.ByDate.Reverse -}}
+  {{- $summary := .Params.summary | default .Summary -}}
+  {{- $index = $index | append (dict
+    "title" .Title
+    "url" .RelPermalink
+    "date" (.Date.Format "2006-01-02")
+    "summary" ($summary | plainify | htmlUnescape | strings.TrimSpace)
+    "tags" (.Params.tags | default (slice))
+  ) -}}
+{{- end -}}
+{{- $index | jsonify -}}
+

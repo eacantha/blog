@@ -1,0 +1,50 @@
+{{- $image := .image -}}
+{{- $alt := .alt | default "" -}}
+{{- $class := .class | default "" -}}
+{{- $loading := .loading | default "lazy" -}}
+{{- $sizes := .sizes | default "100vw" -}}
+{{- $processableTypes := slice "jpeg" "png" "webp" -}}
+
+{{- if and $image (in $processableTypes $image.MediaType.SubType) -}}
+  {{- $srcset := slice -}}
+  {{- $fallback := $image -}}
+
+  {{- if ge $image.Width 480 -}}
+    {{- $small := $image.Resize "480x webp q82" -}}
+    {{- $srcset = $srcset | append (printf "%s %dw" $small.RelPermalink $small.Width) -}}
+    {{- $fallback = $small -}}
+  {{- end -}}
+  {{- if ge $image.Width 720 -}}
+    {{- $medium := $image.Resize "720x webp q82" -}}
+    {{- $srcset = $srcset | append (printf "%s %dw" $medium.RelPermalink $medium.Width) -}}
+    {{- $fallback = $medium -}}
+  {{- end -}}
+  {{- if ge $image.Width 960 -}}
+    {{- $large := $image.Resize "960x webp q82" -}}
+    {{- $srcset = $srcset | append (printf "%s %dw" $large.RelPermalink $large.Width) -}}
+  {{- end -}}
+  {{- if gt $image.Width $fallback.Width -}}
+    {{- $srcset = $srcset | append (printf "%s %dw" $image.RelPermalink $image.Width) -}}
+  {{- end -}}
+
+  <img
+    {{- with $class }} class="{{ . }}"{{ end }}
+    src="{{ $fallback.RelPermalink }}"
+    {{- with $srcset }} srcset="{{ delimit . `, ` }}" sizes="{{ $sizes }}"{{ end }}
+    width="{{ $fallback.Width }}"
+    height="{{ $fallback.Height }}"
+    alt="{{ $alt }}"
+    loading="{{ $loading }}"
+    decoding="async"
+    {{- if eq $loading "eager" }} fetchpriority="high"{{ end }}>
+{{- else -}}
+  {{- with $image -}}
+    <img
+      {{- with $class }} class="{{ . }}"{{ end }}
+      src="{{ .RelPermalink }}"
+      alt="{{ $alt }}"
+      loading="{{ $loading }}"
+      decoding="async"
+      {{- if eq $loading "eager" }} fetchpriority="high"{{ end }}>
+  {{- end -}}
+{{- end -}}

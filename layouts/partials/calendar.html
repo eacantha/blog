@@ -1,0 +1,62 @@
+{{- $context := . -}}
+{{- $calendarDate := now -}}
+{{- if and $context.IsPage (eq $context.Section "posts") -}}
+  {{- $calendarDate = $context.Date -}}
+{{- else -}}
+  {{- $contextPosts := where $context.RegularPages "Section" "posts" -}}
+  {{- with $contextPosts.ByDate.Reverse -}}
+    {{- $calendarDate = (index . 0).Date -}}
+  {{- else -}}
+    {{- $sitePosts := where site.RegularPages "Section" "posts" -}}
+    {{- with $sitePosts.ByDate.Reverse -}}
+      {{- $calendarDate = (index . 0).Date -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+
+{{- $firstOfMonth := time.AsTime (printf "%s-01" ($calendarDate.Format "2006-01")) -}}
+{{- $nextMonth := $firstOfMonth.AddDate 0 1 0 -}}
+{{- $lastOfMonth := $nextMonth.AddDate 0 0 -1 -}}
+{{- $leadingBlanks := int $firstOfMonth.Weekday -}}
+{{- $monthKey := $firstOfMonth.Format "2006-01" -}}
+{{- $publishedDates := dict -}}
+{{- $allPosts := where site.RegularPages "Section" "posts" -}}
+{{- range $allPosts -}}
+  {{- if eq (.Date.Format "2006-01") $monthKey -}}
+    {{- $publishedDates = merge $publishedDates (dict (.Date.Format "2006-01-02") true) -}}
+  {{- end -}}
+{{- end -}}
+
+<div class="calendar">
+  <div class="calendar__header">
+    {{- with (where $allPosts "Date" "lt" $firstOfMonth).ByDate.Reverse }}
+      {{- $previousDate := (index . 0).Date }}
+    <a href="{{ `archive/` | relURL }}#month-{{ $previousDate.Format `2006-01` }}" aria-label="Browse {{ $previousDate.Format `January 2006` }}">←</a>
+    {{- else }}
+    <span class="calendar__control--disabled" aria-hidden="true">←</span>
+    {{- end }}
+    <a class="calendar__month" href="{{ `archive/` | relURL }}#month-{{ $monthKey }}">{{ $firstOfMonth.Format "January 2006" }}</a>
+    {{- with (where $allPosts "Date" "ge" $nextMonth).ByDate }}
+      {{- $followingDate := (index . 0).Date }}
+    <a href="{{ `archive/` | relURL }}#month-{{ $followingDate.Format `2006-01` }}" aria-label="Browse {{ $followingDate.Format `January 2006` }}">→</a>
+    {{- else }}
+    <span class="calendar__control--disabled" aria-hidden="true">→</span>
+    {{- end }}
+  </div>
+  <div class="calendar__grid" aria-label="{{ $firstOfMonth.Format `January 2006` }} publishing calendar">
+    {{ range slice "Sunday" "Monday" "Tuesday" "Wednesday" "Thursday" "Friday" "Saturday" }}
+      <span class="calendar__weekday"><abbr title="{{ . }}">{{ substr . 0 1 }}</abbr></span>
+    {{ end }}
+    {{ if gt $leadingBlanks 0 }}
+      {{ range seq 1 $leadingBlanks }}<span class="calendar__blank" aria-hidden="true"></span>{{ end }}
+    {{ end }}
+    {{ range seq 1 $lastOfMonth.Day }}
+      {{ $dateKey := printf "%s-%02d" $monthKey . }}
+      {{ if index $publishedDates $dateKey }}
+        <a class="calendar__day calendar__day--published" href="{{ `archive/` | relURL }}#date-{{ $dateKey }}" aria-label="Posts published {{ time.Format `:date_long` $dateKey }}">{{ . }}</a>
+      {{ else }}
+        <span class="calendar__day">{{ . }}</span>
+      {{ end }}
+    {{ end }}
+  </div>
+</div>

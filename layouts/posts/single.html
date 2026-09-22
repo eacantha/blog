@@ -1,0 +1,54 @@
+{{ define "main" }}
+  <article class="article">
+    <header class="article-header">
+      <h1>{{ .Title }}</h1>
+      {{ partial "post-meta.html" . }}
+    </header>
+
+    {{ with .Params.featured_image }}
+      {{ with $.Resources.GetMatch . }}
+        <figure class="article-featured">
+          {{ partial "responsive-image.html" (dict
+            "image" .
+            "alt" ($.Params.featured_image_alt | default $.Title)
+            "class" "article-featured__image"
+            "loading" "eager"
+            "sizes" "(max-width: 1200px) 92vw, 1200px"
+          ) }}
+        </figure>
+      {{ end }}
+    {{ end }}
+
+    <div class="article-layout">
+      {{ if .Params.show_toc }}
+        <aside class="article-toc" aria-labelledby="article-toc-title">
+          <h2 id="article-toc-title">On this page</h2>
+          {{ .TableOfContents }}
+        </aside>
+      {{ end }}
+
+      <div class="article-content">
+        {{ .Content }}
+      </div>
+    </div>
+  </article>
+
+  {{ $previous := .PrevInSection }}
+  {{ $next := .NextInSection }}
+  {{ if or $previous $next }}
+    <nav class="post-navigation" aria-label="More posts">
+      <div class="post-navigation__previous">
+        {{ with $previous }}
+          <span>Previous post</span>
+          <a href="{{ .RelPermalink }}" rel="prev"><span aria-hidden="true">←</span> {{ .Title }}</a>
+        {{ end }}
+      </div>
+      <div class="post-navigation__next">
+        {{ with $next }}
+          <span>Next post</span>
+          <a href="{{ .RelPermalink }}" rel="next">{{ .Title }} <span aria-hidden="true">→</span></a>
+        {{ end }}
+      </div>
+    </nav>
+  {{ end }}
+{{ end }}

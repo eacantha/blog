@@ -1,0 +1,20 @@
+{{ define "main" }}
+  <section class="post-stream" aria-labelledby="latest-posts-title">
+    <header class="list-header">
+      <h2 id="latest-posts-title">Latest posts</h2>
+    </header>
+
+    {{ $posts := where site.RegularPages "Section" "posts" }}
+    {{ $paginator := .Paginate $posts.ByDate.Reverse }}
+    {{ if $paginator.Pages }}
+      <div class="post-list">
+        {{ range $index, $page := $paginator.Pages }}
+          {{ partial "post-card.html" (dict "page" $page "loading" (cond (eq $index 0) "eager" "lazy")) }}
+        {{ end }}
+      </div>
+      {{ partial "pagination.html" $paginator }}
+    {{ else }}
+      <p class="empty-state">No posts have been published yet. Check back soon.</p>
+    {{ end }}
+  </section>
+{{ end }}

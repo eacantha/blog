@@ -1,0 +1,29 @@
+baseURL: "https://blog.kittenin.space/"
+locale: "en-US"
+title: "blog.kittenin.space"
+
+taxonomies:
+  tag: tags
+
+pagination:
+  pagerSize: 8
+
+outputs:
+  home:
+    - HTML
+    - RSS
+    - JSON
+
+outputFormats:
+  JSON:
+    mediaType: "application/json"
+    baseName: "index"
+    isPlainText: true
+    notAlternative: true
+
+params:
+  tagline: "fiber arts • tech • whatever"
+  description: "A blog mostly about fiber crafts but also sometimes about tech."
+  aboutBlurb: >-
+    Elle likes cats, computers, and yarn (in no particular order).
+    Sometimes she writes about these things.

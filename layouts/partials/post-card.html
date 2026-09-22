@@ -1,0 +1,37 @@
+{{ $page := .page }}
+{{ $loading := .loading | default "lazy" }}
+{{ $featured := false }}
+{{ with $page.Params.featured_image }}
+  {{ $featured = $page.Resources.GetMatch . }}
+{{ end }}
+
+<article class="post-card{{ if not $featured }} post-card--text-only{{ end }}">
+  {{ with $featured }}
+    <a class="post-card__image-link" href="{{ $page.RelPermalink }}">
+      {{ partial "responsive-image.html" (dict
+        "image" .
+        "alt" ($page.Params.featured_image_alt | default $page.Title)
+        "class" "post-card__image"
+        "loading" $loading
+        "sizes" "(max-width: 650px) 90vw, (max-width: 1200px) 42vw, 552px"
+      ) }}
+    </a>
+  {{ end }}
+
+  <div class="post-card__content">
+    {{ partial "post-meta.html" $page }}
+
+    <h2 class="post-card__title">
+      <a href="{{ $page.RelPermalink }}">{{ $page.Title }}</a>
+    </h2>
+
+    {{ $summary := $page.Params.summary | default $page.Summary }}
+    {{ with $summary }}
+      <p class="post-card__summary">{{ . | plainify | htmlUnescape | strings.TrimSpace }}</p>
+    {{ end }}
+
+    <a class="post-card__more" href="{{ $page.RelPermalink }}">
+      Read more <span class="visually-hidden">about {{ $page.Title }}</span><span aria-hidden="true"> →</span>
+    </a>
+  </div>
+</article>

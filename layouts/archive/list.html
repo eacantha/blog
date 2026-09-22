@@ -1,0 +1,48 @@
+{{ define "main" }}
+  <section class="archive" aria-labelledby="archive-title">
+    <header class="list-header">
+      <h1 id="archive-title">{{ .Title }}</h1>
+      {{ with .Params.description }}<p>{{ . }}</p>{{ end }}
+    </header>
+
+    <section class="archive-calendar" aria-labelledby="archive-calendar-title">
+      <h2 id="archive-calendar-title">Publishing calendar</h2>
+      {{ partial "calendar.html" . }}
+    </section>
+
+    {{ $posts := where site.RegularPages "Section" "posts" }}
+    {{ with $posts.ByDate.Reverse }}
+      {{ $seenDates := dict }}
+      <div class="archive-years">
+        {{ range .GroupByDate "2006" }}
+          <section class="archive-year" id="year-{{ .Key }}" aria-labelledby="year-{{ .Key }}-title">
+            <h2 id="year-{{ .Key }}-title">{{ .Key }}</h2>
+            {{ range .Pages.GroupByDate "January" }}
+              {{ $monthID := (index .Pages 0).Date.Format "2006-01" }}
+              <section class="archive-month" id="month-{{ $monthID }}" aria-labelledby="month-{{ $monthID }}-title">
+                <h3 id="month-{{ $monthID }}-title">{{ .Key }}</h3>
+                <ol>
+                  {{ range .Pages }}
+                    {{ $dateKey := .Date.Format "2006-01-02" }}
+                    <li{{ if not (index $seenDates $dateKey) }} id="date-{{ $dateKey }}"{{ end }}>
+                      {{ $seenDates = merge $seenDates (dict $dateKey true) }}
+                      <time datetime="{{ .Date.Format `2006-01-02` }}">{{ .Date.Format "Jan 2" }}</time>
+                      <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+                      {{ with .GetTerms "tags" }}
+                        <span class="archive-post__tags">
+                          {{ range . }}<a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>{{ end }}
+                        </span>
+                      {{ end }}
+                    </li>
+                  {{ end }}
+                </ol>
+              </section>
+            {{ end }}
+          </section>
+        {{ end }}
+      </div>
+    {{ else }}
+      <p class="empty-state">No posts have been published yet.</p>
+    {{ end }}
+  </section>
+{{ end }}

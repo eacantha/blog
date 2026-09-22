@@ -1,0 +1,24 @@
+{{- with site.Home.OutputFormats.Get "json" -}}
+  <section class="site-search" aria-labelledby="site-search-title" data-search-root>
+    <h2 id="site-search-title" class="visually-hidden">Search the blog</h2>
+    <form class="site-search__form" role="search" data-search-form data-index-url="{{ .RelPermalink }}">
+      <label class="visually-hidden" for="blog-search">Search the blog</label>
+      <input
+        id="blog-search"
+        type="search"
+        name="q"
+        placeholder="Search the blog…"
+        autocomplete="off"
+        spellcheck="false"
+        aria-controls="search-results"
+        data-search-input>
+      <button type="submit" aria-label="Search">
+        <span aria-hidden="true">⌕</span>
+      </button>
+    </form>
+    <p class="site-search__status visually-hidden" aria-live="polite" data-search-status></p>
+    <div id="search-results" class="search-results" data-search-results hidden></div>
+    <noscript><p class="site-search__noscript">Search requires JavaScript. Tags and the archive remain available.</p></noscript>
+  </section>
+{{- end -}}
+

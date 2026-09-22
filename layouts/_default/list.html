@@ -1,0 +1,22 @@
+{{ define "main" }}
+  <section class="post-stream" aria-labelledby="page-list-title">
+    <header class="list-header">
+      <h1 id="page-list-title">{{ .Title }}</h1>
+      {{ with .Content }}
+        <div class="list-introduction">{{ . }}</div>
+      {{ end }}
+    </header>
+
+    {{ $paginator := .Paginate .RegularPages.ByDate.Reverse }}
+    {{ if $paginator.Pages }}
+      <div class="post-list">
+        {{ range $index, $page := $paginator.Pages }}
+          {{ partial "post-card.html" (dict "page" $page "loading" (cond (eq $index 0) "eager" "lazy")) }}
+        {{ end }}
+      </div>
+      {{ partial "pagination.html" $paginator }}
+    {{ else }}
+      <p class="empty-state">Nothing has been published here yet.</p>
+    {{ end }}
+  </section>
+{{ end }}
