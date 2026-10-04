@@ -1,5 +1,5 @@
 ---
-title: "Adapting in the Afternoon - Creating a Custom Obsidian Theme with AI"
+title: "Creating a Custom Obsidian Theme with AI"
 date: 2026-10-03T15:07:53-04:00
 draft: false
 
