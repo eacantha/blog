@@ -63,8 +63,11 @@ I used 50 grams/68 yards mushroom (that undyed cream color), and 19 grams/24 yar
 Starting with the contrast color, repeat the following until you want to begin crown decreases:
 
 **Row 1 (CC):** (Slip1 k1) to end
+
 **Row 2 (CC):** Knit
+
 **Row 3 (MC):** (k1 slip 1)to end
+
 **Row 4: (MC):** Knit
 
 End after a row 1 repeat.
@@ -72,17 +75,29 @@ End after a row 1 repeat.
 ### Crown
 
 **Row 1 (CC):** K7 k3tog (k11 k3tog) 5 times k6 (74 stitches)
+
 **Row 2 (MC):** Knit in pattern
+
 **Row 3 (MC):** K6 k3tog (k9 k3tog) 5 times k5 (62)
+
 **Row 4 (CC):** Knit in pattern
+
 **Row 5 (CC):** K5 k3tog (k7 k3tog) 5 times k4 (50)
+
 **Row 6 (MC):** Knit in pattern
+
 **Row 7(MC):** K4 k3tog (k5 k3tog) 5 times k3 (38)
+
 **Row 8 (CC):** Knit in pattern
+
 **Row 9 (CC):** (k3 k3tog) 6 times k2 (26)
+
 **Row 10 (MC):** Knit in pattern
+
 **Row 11 (MC):** K2 k3tog (k1 k3tog) 5 times k1 (14)
+
 **Row 12 (CC):** Knit in pattern
+
 **Row 13 (CC):**  (k2togbl k2tog) to end (7)
 
 Cut both threads and pull through loops; weave in ends.
