@@ -3,7 +3,7 @@ title: "My Yarn Can't Reach the Moon, But It Can Make It Up Everest 23 Times"
 date: 2026-09-23T17:30:13-04:00
 draft: false
 
-tags: ["knitting", "yarn", "stashbusting"]
+tags: ["knitting", "yarn", "stashbusting", "fiber arts"]
 
 summary: "A have a lot of yarn and it might be a problem"
 featured_image: "mochiyarn.jpg"

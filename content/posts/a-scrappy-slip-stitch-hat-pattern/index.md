@@ -3,7 +3,7 @@ title: "A Scrappy Slip Stitch Hat Pattern"
 date: 2026-10-12T17:15:22-04:00
 draft: false
 
-tags: ["knitting", "pattern", "stashbusting"]
+tags: ["knitting", "pattern", "stashbusting", "fiber arts"]
 
 summary: "I made a knitting pattern! Use up some yarn scraps with the Scrappy Slip Stitch Hat."
 featured_image: "scrappyhats.jpg"

@@ -3,7 +3,7 @@ title: "Lessons Learned by Counting Rows From Sheep"
 date: 2026-09-21T17:52:36-04:00
 draft: false
 
-tags: ["tech", "coding", "crfs"]
+tags: ["tech", "coding", "crfs", "fiber arts"]
 
 summary: "Whenever learning a new programming language, framework, backend, or tech skill, I have always relied on remaking the same applications: This lets me focus on learning, not product design. Initially, this was a simple to-do list application I called Forethought, although I also dabbled in pomodoro timers. But after a time, I wanted to try to make something important to me: a knitting/crochet row counter."
 featured_image: "crfs-horizontal.jpg"
