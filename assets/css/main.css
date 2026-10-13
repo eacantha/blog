@@ -202,12 +202,20 @@ samp {
 }
 
 .site-title a {
-  color: var(--text);
+  color: var(--neon-green);
   text-decoration: none;
+  text-shadow:
+    0 0 0.5rem color-mix(in srgb, var(--neon-green), transparent 50%),
+    0 0 1.5rem color-mix(in srgb, var(--neon-green), transparent 75%);
+  transition: color var(--transition-fast), text-shadow var(--transition-fast);
 }
 
-.site-title a:hover {
-  color: var(--neon-green);
+.site-title a:hover,
+.site-title a:focus-visible {
+  color: #fff;
+  text-shadow:
+    0 0 0.5rem color-mix(in srgb, #fff, transparent 40%),
+    0 0 1.5rem color-mix(in srgb, var(--neon-green), transparent 40%);
 }
 
 .site-title span {
@@ -1276,7 +1284,9 @@ a.calendar__day--published:hover {
     display: none;
   }
 
-  a {
+  a,
+  .site-title a {
     color: inherit;
+    text-shadow: none;
   }
 }
