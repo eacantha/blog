@@ -3,9 +3,25 @@
     <p class="site-footer__decoration" aria-hidden="true">✦ &nbsp; ⋆ &nbsp; ✦</p>
     <p>&copy; {{ now.Year }} {{ site.Title }}</p>
     <p>Made with Hugo.</p>
-    {{ with site.Home.OutputFormats.Get "rss" }}
-      <p><a href="{{ .RelPermalink }}">RSS</a></p>
-    {{ end }}
+    {{- $feeds := slice }}
+    {{- with site.Home.OutputFormats.Get "rss" }}
+      {{- $feeds = $feeds | append (dict "label" "RSS" "url" .RelPermalink) }}
+    {{- end }}
+    {{- range slice (dict "path" "/tags/tech" "label" "Tech RSS") (dict "path" "/tags/fiber-arts" "label" "Fiber Arts RSS") }}
+      {{- $label := .label }}
+      {{- with site.GetPage .path }}
+        {{- with .OutputFormats.Get "rss" }}
+          {{- $feeds = $feeds | append (dict "label" $label "url" .RelPermalink) }}
+        {{- end }}
+      {{- end }}
+    {{- end }}
+    {{- with $feeds }}
+      <p>
+        {{- range $i, $f := . }}
+          {{- if $i }} <span aria-hidden="true">&nbsp;✦&nbsp;</span> {{ end -}}
+          <a href="{{ $f.url }}">{{ $f.label }}</a>
+        {{- end -}}
+      </p>
+    {{- end }}
   </div>
 </footer>
-
